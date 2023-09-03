@@ -9,35 +9,33 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { register } from "../modules/fetch/auth";
+import { login } from "../modules/fetch/auth";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 
-function Register() {
-  const [username, setUsername] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
-      await register({ username, email, password });
+      await login({ email, password });
 
       Swal.fire({
         icon: "success",
-        title: "Registration Successful",
-        text: "You have successfully registered an account.",
+        title: "Login Successful",
+        text: "You have successfully logged in to your account.",
         showConfirmButton: false,
         timer: 2000,
       });
 
-      navigate("/login");
+      navigate("/");
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: "error",
-        title: "Registration Failed",
-        text: "Oops! Something went wrong during registration.",
+        title: "Login Failed",
+        text: "Invalid email or password. Please try again.",
         showConfirmButton: false,
         showCloseButton: true,
       });
@@ -48,7 +46,7 @@ function Register() {
     <Container
       borderRadius="4%"
       boxShadow="xl"
-      w="350px"
+      w="300px"
       px="30px"
       pt="30px"
       pb="25px"
@@ -63,15 +61,11 @@ function Register() {
           fontWeight="bold"
           textAlign="center"
         >
-          Register
+          Sign In
         </Text>
         <FormControl>
           <Stack>
-            <FormLabel mb={0}>Username</FormLabel>
-            <Input type="text" onChange={(e) => setUsername(e.target.value)} />
-            <FormLabel mt={2} mb={0}>
-              Email
-            </FormLabel>
+            <FormLabel mb={0}>Email</FormLabel>
             <Input type="email" onChange={(e) => setEmail(e.target.value)} />
             <FormLabel mt={2} mb={0}>
               Password
@@ -90,11 +84,14 @@ function Register() {
               mt={3}
               onClick={handleSubmit}
             >
-              Sign Up
+              Sign In
             </Button>
           </Center>
           <Text fontWeight="medium" align="center" pt="20px">
-            Already have an account? <Link to="/login">Sign In</Link>
+            Don't have an account?{" "}
+            <Link to="/register">
+              Register
+            </Link>
           </Text>
         </FormControl>
       </Stack>
@@ -102,4 +99,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

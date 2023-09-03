@@ -1,0 +1,1 @@
+This repository is a clone of ["homework-2"](https://github.com/asaadam/homework-2) repository, which was created by [Adam Akbar](https://github.com/asaadam).
